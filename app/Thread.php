@@ -9,6 +9,6 @@ class Thread extends Model
 {
     function replies()
     {
-    	return $this->hasMany(Reply::class);
+    	return $this->hasMany(Reply::class)->latest();
     }
 }

@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     @foreach ($threads as $thread)
                         <h4><a href="{{ route('show-thread', $thread->id) }}">{{ $thread->title }}</a></h4>
-                        <p>{{ $thread->body }}</p>
+                        <p>{{ $thread->body }}</p> ({{$thread->replies()->count()}} replies)
                         <hr>
                     @endforeach
                 </div>
