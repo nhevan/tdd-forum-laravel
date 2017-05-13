@@ -11,6 +11,15 @@ class CreateThreadTest extends TestCase
 {
 	use DatabaseTransactions;
 
+    /**
+     * @test
+     * a guest may not see create thread form
+     */
+    public function a_guest_may_not_see_create_thread_form()
+    {
+        $this->withExceptionHandling()->get('/threads/create')->assertRedirect('/login');
+    }
+
 	/**
 	 * @test
 	 * a guest may not create new thread
