@@ -25,7 +25,7 @@ class ReadThreadsTest extends TestCase
      */
     public function a_user_can_browse_threads()
     {
-        $response = $this->get('/thread')
+        $response = $this->get('/threads')
                     ->assertStatus(200)
                     ->assertSee($this->thread->title);
     }
@@ -36,7 +36,7 @@ class ReadThreadsTest extends TestCase
      */
     public function a_user_can_read_a_single_thread()
     {
-        $response = $this->get('/thread/'.$this->thread->id);
+        $response = $this->get($this->thread->path());
 
         $response->assertStatus(200);
         $response->assertSee($this->thread->title);
@@ -50,7 +50,7 @@ class ReadThreadsTest extends TestCase
     {
         $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
 
-        $response = $this->get('/thread/'.$this->thread->id)
+        $response = $this->get($this->thread->path())
                         ->assertSee($reply->body)
                         ->assertSee($reply->owner->name)
                         ->assertSee($reply->created_at->diffForHumans());
