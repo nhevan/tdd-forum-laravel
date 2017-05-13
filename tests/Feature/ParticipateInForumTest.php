@@ -27,12 +27,11 @@ class ParticipateInForumTest extends TestCase
      */
     public function an_authenticated_user_can_post_a_reply()
     {
-    	$thread = factory('App\Thread')->create();
+    	$thread = create('App\Thread');
 
-    	$user = factory('App\User')->create();
-    	$this->be($user);
+    	$this->signIn();
 
-    	$reply = factory('App\Reply')->make();
+    	$reply = make('App\Reply');
     	$this->post($thread->path().'/replies', $reply->toArray());
 
     	$this->get($thread->path())
