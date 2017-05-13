@@ -1,7 +1,7 @@
 @if (auth()->check())
 	<div class="panel panel-default">
 	    <div class="panel-body">
-			<form action="{{ route('add-reply', $thread->id) }}" method="POST" role="form">
+			<form action="{{ route('replies.add', $thread->id) }}" method="POST" role="form">
 				{{ csrf_field() }}
 				<div class="form-group">
 					<div class="col-sm-12">
