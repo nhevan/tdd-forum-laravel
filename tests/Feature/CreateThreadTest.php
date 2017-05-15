@@ -38,4 +38,18 @@ class CreateThreadTest extends TestCase
     		 ->assertSee($thread->title)
     		 ->assertSee($thread->body);
     }
+
+    /**
+     * @test
+     * a thread requires a title
+     */
+    public function a_thread_requires_a_title()
+    {
+        $this->signIn();
+
+        $thread = make('App\Thread', [ 'title' => null ]);
+
+        $this->post('/threads', $thread->toArray())
+             ->assertSessionHasErrors('title');
+    }
 }
