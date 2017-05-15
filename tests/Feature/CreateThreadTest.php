@@ -55,8 +55,24 @@ class CreateThreadTest extends TestCase
      */
     public function a_thread_requires_a_body()
     {
-        $this->publishThread(['body'=>null])
+        $this->publishThread(['body' => null])
              ->assertSessionHasErrors('body');
+    }
+
+    /**
+     * @test
+     * a thread requires a valid channel
+     */
+    public function a_thread_requires_a_valid_channel()
+    {
+        factory('App\Channel', 2)->create(); //creates 2 channels with id 1 and 2 as we are using DatabaseTransactions
+
+        $this->publishThread(['channel_id' => null])
+             ->assertSessionHasErrors('channel_id');
+
+        $this->publishThread(['channel_id' => 999])
+             ->assertSessionHasErrors('channel_id');
+             
     }
 
     protected function publishThread($attributes = [])
