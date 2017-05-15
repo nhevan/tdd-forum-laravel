@@ -21,6 +21,16 @@ class ThreadTest extends TestCase
 
 		$this->thread = create('App\Thread');
 	}
+	
+	/**
+	 * @test
+	 * a thread has a creator
+	 */
+	public function a_thread_has_a_creator()
+	{
+		$this->assertInstanceOf(User::class, $this->thread->creator);
+	}
+
 	/**
 	 * @test
 	 * a thread has many replies
@@ -35,24 +45,37 @@ class ThreadTest extends TestCase
 
 	/**
 	 * @test
-	 * a thread has a creator
-	 */
-	public function a_thread_has_a_creator()
-	{
-		$this->assertInstanceOf(User::class, $this->thread->creator);
-	}
-
-	/**
-	 * @test
 	 * a thread can add a reply
 	 */
 	public function a_thread_can_add_a_reply()
 	{
 		$this->thread->addReply([
 			'body' => 'FooBar',
-			'user_id' => 1
+			'user_id' => create('App\User')->id
 		]);
 
 		$this->assertEquals(1, $this->thread->replies()->count());
+	}
+
+	/**
+	 * @test
+	 * a thread belongs to channel
+	 */
+	public function a_thread_belongs_to_channel()
+	{
+		$thread = create('App\Thread');
+
+		$this->assertInstanceOf('App\Channel', $thread->channel);
+	}
+
+	/**
+	 * @test
+	 * a thread returns channel name in its path
+	 */
+	public function a_thread_returns_channel_name_in_its_path()
+	{
+		$thread = create('App\Thread');
+
+		$this->assertEquals("/threads/{$thread->channel->slug}/{$thread->id}", $thread->path());
 	}
 }
