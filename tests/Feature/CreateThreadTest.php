@@ -11,23 +11,15 @@ class CreateThreadTest extends TestCase
 {
 	use DatabaseTransactions;
 
-    /**
-     * @test
-     * a guest may not see create thread form
-     */
-    public function a_guest_may_not_see_create_thread_form()
-    {
-        $this->withExceptionHandling()->get('/threads/create')->assertRedirect('/login');
-    }
-
 	/**
 	 * @test
 	 * a guest may not create new thread
 	 */
 	public function a_guest_may_not_create_new_thread()
 	{
-		$this->expectException('Illuminate\Auth\AuthenticationException');
-		$this->post('/threads', []);		
+        $this->withExceptionHandling()->get('/threads/create')->assertRedirect('/login');
+
+		$this->post('/threads', [])->assertRedirect('/login');		
 	}
 
     /**
