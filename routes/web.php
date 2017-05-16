@@ -18,8 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/threads/{channel}/{thread}', 'ThreadsController@show')->name('threads.show');
 Route::resource('threads', 'ThreadsController', ['except' => [
     'show'
 ]]);
+Route::get('/threads/{channel}', 'ThreadsController@index')->name('channels.threads');
+Route::get('/threads/{channel}/{thread}', 'ThreadsController@show')->name('threads.show');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store')->name('replies.add');
