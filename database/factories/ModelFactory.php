@@ -1,5 +1,7 @@
 <?php
 
+use App\Thread;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -42,8 +44,9 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Reply::class, function (Faker\Generator $faker) {
+    $thread_ids = Thread::pluck('id');
     return [
-	    'thread_id' => factory('App\Thread')->create()->id,
+	    'thread_id' => $faker->randomElement($thread_ids->toArray()),
     	'user_id' => factory('App\User')->create()->id,
         'body' => $faker->paragraph,
     ];
