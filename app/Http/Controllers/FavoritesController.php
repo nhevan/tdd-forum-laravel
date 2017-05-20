@@ -44,6 +44,8 @@ class FavoritesController extends Controller
         if (!$this->isFavorite($reply)) {
             $reply->favorite();
         }
+
+        return back();
     }
 
     /**
