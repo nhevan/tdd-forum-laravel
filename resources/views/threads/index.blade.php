@@ -9,8 +9,15 @@
 
                 <div class="panel-body">
                     @foreach ($threads as $thread)
-                        <h4><a href="{{ route('threads.show', [$thread->channel->slug, $thread->id]) }}">{{ $thread->title }}</a></h4>
-                        <p>{{ $thread->body }}</p> ({{$thread->replies()->count()}} replies)
+                        <div class="level">
+                            <h4 class="flex">
+                                <a href="{{ route('threads.show', [$thread->channel->slug, $thread->id]) }}">{{ $thread->title }}</a>
+                            </h4>
+                            <a href="{{ route('threads.show', [$thread->channel->slug, $thread->id]) }}">
+                                <strong>{{$thread->replies_count}} {{ str_plural('reply', $thread->replies_count) }}</strong>
+                            </a>
+                        </div>
+                        <p>{{ $thread->body }}</p> 
                         <hr>
                     @endforeach
                 </div>
