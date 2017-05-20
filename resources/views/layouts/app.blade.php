@@ -61,6 +61,7 @@
                                @if (auth()->check())
                                     <li><a href="{{ url('/threads?by='.auth()->user()->name )}}">My Threads</a></li>
                                @endif
+                               <li><a href="{{ url('/threads?popular=1') }}">Popular Threads</a></li>
                             </ul>
                         </li>
                         <li><a href="{{ route('threads.create') }}">New Thread</a></li>
