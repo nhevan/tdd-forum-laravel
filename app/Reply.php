@@ -12,4 +12,14 @@ class Reply extends Model
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}
+
+	function favorites()
+	{
+		return $this->morphMany(Favorite::class, 'favorited');
+	}
+
+	function favorite()
+	{
+		return $this->favorites()->create(['user_id' => auth()->id()]);
+	}
 }
