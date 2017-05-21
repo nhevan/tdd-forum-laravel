@@ -16,6 +16,7 @@ class ReplyTest extends TestCase
      */
     public function it_has_a_owner()
     {
+        $thread = create('App\Thread');
     	$reply = create('App\Reply');
 
     	$this->assertInstanceOf(User::class, $reply->owner);

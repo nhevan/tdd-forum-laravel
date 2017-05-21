@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FavoritesTest extends TestCase
 {
+    use DatabaseTransactions;
 	/**
 	 * @test
 	 * an unauthenticated user can not favorite a reply

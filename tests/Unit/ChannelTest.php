@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ChannelTest extends TestCase
 {
+    use DatabaseTransactions;
     /**
      * @test
      * it has many threads

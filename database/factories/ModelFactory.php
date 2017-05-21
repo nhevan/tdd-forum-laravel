@@ -47,6 +47,7 @@ $factory->define(App\Reply::class, function (Faker\Generator $faker) {
     $thread_ids = Thread::pluck('id');
     return [
 	    'thread_id' => $faker->randomElement($thread_ids->toArray()),
+        // 'thread_id' => factory('App\Thread')->create()->id,
     	'user_id' => factory('App\User')->create()->id,
         'body' => $faker->paragraph,
     ];
