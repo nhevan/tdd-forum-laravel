@@ -6,7 +6,7 @@
 			<p>{{ $reply->body }}</p>
 			<div class="level">
 				<h6 class="flex">
-					<a href="">{{$reply->owner->name}}</a> replied {{$reply->created_at->diffForHumans()}}					
+					<a href="{{ route('profile', $reply->owner) }}">{{$reply->owner->name}}</a> replied {{$reply->created_at->diffForHumans()}}					
 				</h6>
 				<form action="{{ url("replies/{$reply->id}/favorites") }}" method="POST" role="form">
 					{{ csrf_field() }}				
