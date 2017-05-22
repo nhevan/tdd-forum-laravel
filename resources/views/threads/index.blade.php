@@ -4,11 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Threads</div>
-
-                <div class="panel-body">
-                    @foreach ($threads as $thread)
+            @foreach ($threads as $thread)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <div class="level">
                             <h4 class="flex">
                                 <a href="{{ route('threads.show', [$thread->channel->slug, $thread->id]) }}">{{ $thread->title }}</a>
@@ -17,11 +15,12 @@
                                 <strong>{{$thread->replies_count}} {{ str_plural('reply', $thread->replies_count) }}</strong>
                             </a>
                         </div>
+                    </div>
+                    <div class="panel-body">
                         <p>{{ $thread->body }}</p> 
-                        <hr>
-                    @endforeach
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
