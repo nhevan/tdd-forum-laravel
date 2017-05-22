@@ -9,6 +9,16 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function getRouteKeyName()
+    {
+        return "name";
+    }
+
+    public function threads()
+    {
+        return $this->hasMany('App\Thread')->latest();
+    }
+
     /**
      * The attributes that are mass assignable.
      *
