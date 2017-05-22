@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Thread extends Model
 {
     protected $fillable = ['user_id', 'channel_id', 'title', 'body'];
+    protected $with = ['creator', 'channel'];
 
     /**
      * The "booting" method of the model.
