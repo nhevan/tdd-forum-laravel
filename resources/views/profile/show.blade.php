@@ -11,7 +11,9 @@
 	        	@foreach ($threads as $thread)
 	        		<div class="panel panel-default">
 		                <div class="panel-heading level">
-		                    <strong class="flex">{{ $thread->title }}</strong>
+		                    <a href="{{ route('threads.show', [$thread->channel->slug, $thread->id]) }}">
+		                    	<strong class="flex">{{ $thread->title }}</strong>
+	                    	</a>
 		                    <small>posted {{ $thread->created_at->diffForHumans() }}</small>
 		                </div>
 
