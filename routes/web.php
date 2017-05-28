@@ -19,10 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('threads', 'ThreadsController', ['except' => [
-    'show'
+    'show', 'delete'
 ]]);
 Route::get('/threads/{channel}', 'ThreadsController@index')->name('channels.threads');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show')->name('threads.show');
+Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy')->name('threads.destroy');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store')->name('replies.add');
 
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
