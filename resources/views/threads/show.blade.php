@@ -8,12 +8,13 @@
                 <div class="panel-heading">
                     <div class="level">
                         <strong class="flex">{{ $thread->title }}</strong>
-
-                        <form action="{{ $thread->path() }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('delete') }}
-                            <button type="submit" class="btn btn-link">Delete Thread</button>
-                        </form>    
+                        @can('update', $thread)
+                            <form action="{{ $thread->path() }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('delete') }}
+                                <button type="submit" class="btn btn-link">Delete Thread</button>
+                            </form>
+                        @endcan
                     </div>
                     
                 </div>
