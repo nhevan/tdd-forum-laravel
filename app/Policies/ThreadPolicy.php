@@ -12,9 +12,7 @@ class ThreadPolicy
 
     public function before($user)
     {
-        if ($user->name == "NH Evan") {
-            return true;
-        }
+        
     }
 
     /**
