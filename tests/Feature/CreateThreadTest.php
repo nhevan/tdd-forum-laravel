@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Channel;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -72,40 +73,34 @@ class CreateThreadTest extends TestCase
 
         $this->publishThread(['channel_id' => 999])
              ->assertSessionHasErrors('channel_id');
-             
     }
 
     /**
      * @test
-     * guests can not delete threads
+     * unauthorized users can not delete threads
      */
-    public function guests_can_not_delete_threads()
+    public function unauthorized_users_can_not_delete_threads()
     {
         $this->withExceptionHandling();
+        $thread = create('App\Thread');
 
-        $this->delete('/threads/channelslug/1')
+        $this->delete($thread->path())
              ->assertRedirect('/login');
 
-    }
-
-    /**
-     * @test
-     * a thread can only be deleted by those who have permission
-     */
-    public function a_thread_can_only_be_deleted_by_those_who_have_permission()
-    {
-        
+        $this->signIn();
+        $this->delete($thread->path())
+             ->assertStatus(403);
     }
 
     /**
      * @test
      * a thread can be deleted
      */
-    public function a_thread_can_be_deleted()
+    public function a_thread_can_be_deleted_by_thread_owner()
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $reply = create('App\Reply', ['thread_id'=>$thread->id]);
 
         $response = $this->json('DELETE', $thread->path());
