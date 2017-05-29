@@ -14,12 +14,15 @@ trait RecordActivity{
 
 	protected function recordActivity($event)
     {
-        Activity::create([
-            'user_id' => auth()->id(),
+    	$this->activity()->create([
+    		'user_id' => auth()->id(),
             'type' => $this->getEventType($event),
-            'subject_id' => $this->id,
-            'subject_type' => get_class($this)
-        ]);
+		]);
+    }
+
+    public function activity()
+    {
+    	return $this->morphMany('App\Activity', 'subject');
     }
 
     protected function getEventType($event)
