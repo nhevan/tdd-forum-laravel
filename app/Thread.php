@@ -5,11 +5,14 @@ namespace App;
 use App\User;
 use App\Reply;
 use App\Channel;
+use App\Traits\RecordActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
+    use RecordActivity;
+
     protected $fillable = ['user_id', 'channel_id', 'title', 'body'];
     protected $with = ['creator', 'channel'];
 
