@@ -7,9 +7,18 @@ use App\Activity;
 trait RecordActivity{
 	protected static function bootRecordActivity()
 	{
-        static::created(function($model){
-            $model->recordActivity('created');
-        });
+		if (auth()->guest()) return;
+
+		foreach (static::getActivitiesToRecord() as $activity) {
+			static::$activity(function($model) use($activity){
+	            $model->recordActivity($activity);
+	        });
+		}
+	}
+
+	protected static function getActivitiesToRecord()
+	{
+		return ['created'];
 	}
 
 	protected function recordActivity($event)
