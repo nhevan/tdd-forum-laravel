@@ -8,8 +8,11 @@
 					<h1>{{ $profileUser->name }}</h1>
 					<small style="position: relative; top: 14px; left: 20px;">since {{ $profileUser->created_at->diffForHumans() }}</small>
 	        	</div>
-	        	@foreach ($activities as $activity)
-	        		@include('profile.activities.'.$activity->type)
+	        	@foreach ($activities as $date => $activity)
+	        		<h3 class="page-header">{{$date}}</h3>
+	        		@foreach ($activity as $record)
+		        		@include('profile.activities.'.$record->type, ['activity' => $record])
+	        		@endforeach
 	        	@endforeach
 	        </div>
         </div>
