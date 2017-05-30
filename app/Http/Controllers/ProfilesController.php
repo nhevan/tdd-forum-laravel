@@ -46,14 +46,22 @@ class ProfilesController extends Controller
      */
     public function show(User $user)
     {
-        $activities = $user->activity()->with('subject')->get()->groupBy(function($activity){
-            return $activity->created_at->format('Y-m-d');
-        });
-
         return view('profile.show', [
             'profileUser' => $user,
-            'activities' => $activities
+            'activities' => $this->getActivity($user)
         ]);
+    }
+
+    /**
+     * get activites of a given user
+     * @param  [type] $user [description]
+     * @return [type]       [description]
+     */
+    private function getActivity($user)
+    {
+        return $user->activity()->with('subject')->get()->groupBy(function($activity){
+            return $activity->created_at->format('Y-m-d');
+        });
     }
 
     /**
