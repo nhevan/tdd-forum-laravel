@@ -19,6 +19,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Thread')->latest();
     }
 
+    public function activity()
+    {
+        return $this->hasMany('App\Activity')->latest();
+    }
+
     /**
      * The attributes that are mass assignable.
      *

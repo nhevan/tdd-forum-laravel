@@ -46,9 +46,10 @@ class ProfilesController extends Controller
      */
     public function show(User $user)
     {
+        $activities = $user->activity()->with('subject')->get();
         return view('profile.show', [
             'profileUser' => $user,
-            'threads' => $user->threads()->paginate(2)
+            'activities' => $activities
         ]);
     }
 
