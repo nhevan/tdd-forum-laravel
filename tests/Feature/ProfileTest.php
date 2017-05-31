@@ -24,7 +24,6 @@ class ProfileTest extends TestCase
     }
 
     /**
-     * @test
      * a profile contains all the threads associated with the user
      */
     public function a_profile_contains_all_the_threads_associated_with_the_user()
