@@ -34,8 +34,8 @@
         @include('layouts.nav')
 
         @yield('content')
+        <example></example>
     </div>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
