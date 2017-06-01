@@ -34,7 +34,7 @@
         @include('layouts.nav')
 
         @yield('content')
-        <example></example>
+        <flash message="{{ session('flash') }}"></flash>
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
