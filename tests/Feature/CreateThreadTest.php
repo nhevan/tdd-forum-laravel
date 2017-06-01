@@ -38,6 +38,10 @@ class CreateThreadTest extends TestCase
     	$this->get($response->headers->get('Location'))
     		 ->assertSee($thread->title)
     		 ->assertSee($thread->body);
+
+        $name = auth()->user()->name;
+        $this->get('/profile/'.$name)
+             ->assertSee($thread->title);
     }
 
     /**
@@ -108,6 +112,15 @@ class CreateThreadTest extends TestCase
         $response->assertStatus(204);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+        
+        $this->assertDatabaseMissing('activities', [
+            'subject_id' => $thread->id,
+            'subject_type' => get_class($thread)
+        ]);
+        $this->assertDatabaseMissing('activities', [
+            'subject_id' => $reply->id,
+            'subject_type' => get_class($reply)
+        ]);
     }
 
     protected function publishThread($attributes = [])

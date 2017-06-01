@@ -14,6 +14,9 @@ trait RecordActivity{
 	            $model->recordActivity($activity);
 	        });
 		}
+		static::deleted(function($model){
+            $model->activity()->get()->each->delete();
+        });
 	}
 
 	protected static function getActivitiesToRecord()
