@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     public function activity()
     {
-        return $this->hasMany('App\Activity')->latest();
+        return $this->hasMany('App\Activity');
     }
 
     /**

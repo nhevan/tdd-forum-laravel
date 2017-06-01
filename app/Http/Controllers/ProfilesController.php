@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Activity;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
@@ -48,20 +49,8 @@ class ProfilesController extends Controller
     {
         return view('profile.show', [
             'profileUser' => $user,
-            'activities' => $this->getActivity($user)
+            'activities' => Activity::feed($user)
         ]);
-    }
-
-    /**
-     * get activites of a given user
-     * @param  [type] $user [description]
-     * @return [type]       [description]
-     */
-    private function getActivity($user)
-    {
-        return $user->activity()->with('subject')->get()->groupBy(function($activity){
-            return $activity->created_at->format('Y-m-d');
-        });
     }
 
     /**
